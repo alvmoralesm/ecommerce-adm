@@ -25,4 +25,4 @@ This is an E-Commerce that is currently being built as a side project.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@alvmoralesm](https://github.com/alvmoralesm)
+- [Me, myself and I](https://github.com/alvmoralesm)
