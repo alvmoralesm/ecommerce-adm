@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Status](https://img.shields.io/badge/status-wip-success.svg)]()
+![Status](https://img.shields.io/badge/status-wip-success.svg)
 
 </div>
 
@@ -14,7 +14,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This is an E-Commerce that is currently being.
+This is an E-Commerce that is currently being built as a side project.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
