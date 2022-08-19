@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">Edit Brand</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/brands/<%= brand.id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="name">Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="brand[name]"
+          id="name"
+          value="<%= brand.name %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description:</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="brand[description]"
+          id="description"
+        >
+<%= brand.description %></textarea
+        >
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success btn-block">
+          Edit Brand
+        </button>
+      </div>
+      <a href="/brands">Back To Brands</a>
+    </form>
+  </div>
+</div>

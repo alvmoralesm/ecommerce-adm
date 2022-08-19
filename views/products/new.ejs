@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">New Product</h1>
+  <div class="col-md-6 offset-md-3">
+    <form action="/products" method="POST" novalidate class="validated-form">
+      <div class="mb-3">
+        <label class="form-label" for="name">Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="product[name]"
+          id="name"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description:</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="product[description]"
+          id="description"
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Price:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="product[price]"
+          id="price"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Stock:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="product[stock]"
+          id="stock"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success btn-block">
+          Add Product
+        </button>
+      </div>
+      <a href="/products">All Products</a>
+    </form>
+  </div>
+</div>
