@@ -36,6 +36,16 @@ module.exports.deleteBrand = catchAsync(async (req, res) => {
   res.redirect("/brands");
 });
 
+module.exports.editBrand = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const brand = await Brand.findByIdAndUpdate(id, {
+    ...req.body.brand,
+  });
+  await brand.save();
+  req.flash("success", "Succcessfully updated brand!");
+  res.redirect(`/brands/`);
+});
+
 module.exports.getBrandByName = catchAsync(async (req, res) => {
   /* const { name } = req.query; */
   let name = req.query.name;

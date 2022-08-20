@@ -5,8 +5,9 @@ const currencyFormatter = require("../public/js/currencyFormatter");
 
 module.exports.index = catchAsync(async (req, res) => {
   const products = await Product.find({});
+  const formatter = currencyFormatter;
 
-  res.render("products/index", { products });
+  res.render("products/index", { products, formatter });
 });
 
 module.exports.renderNewForm = catchAsync(async (req, res) => {

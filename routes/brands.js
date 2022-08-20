@@ -11,6 +11,11 @@ router.get("/new", brands.renderNewForm);
 
 router.delete("/:id", brands.deleteBrand);
 
+router
+  .route("/:id")
+  .put(validateBrand, brands.editBrand)
+  .delete(brands.deleteBrand);
+
 router.get("/:id/edit", brands.renderEditForm);
 
 module.exports = router;
