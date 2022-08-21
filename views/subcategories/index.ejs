@@ -3,12 +3,12 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-sm-4 col-6">
-      <h1><b>Brands</b></h1>
+      <h1><b>Subcategories</b></h1>
     </div>
     <div class="col-sm-4 offset-sm-4 col-6">
       <div class="d-grid gap-2">
-        <a href="/brands/new" class="btn btn-success"
-          ><i class="bi bi-plus-circle"></i> Add Brand</a
+        <a href="/subcategories/new" class="btn btn-success"
+          ><i class="bi bi-plus-circle"></i> Add Subcategory</a
         >
       </div>
     </div>
@@ -16,10 +16,10 @@
 
   <form
     class="row row-cols-lg-auto g-3 align-items-center mt-5"
-    action="/brands/search"
+    action="/subcategories/search"
     method="GET"
   >
-    <div class="col-md-5 col-10">
+    <div class="col-md-5 col-12">
       <input
         class="form-control"
         type="text"
@@ -28,38 +28,47 @@
         placeholder="Name"
       />
     </div>
+    <div class="col-md-5 col-12">
+      <select class="form-select" name="category" id="category">
+        <option value="" selected>-- Select Category --</option>
+        <% for(let category of categories){ %>
+        <option value="<%= category.id %> "><%= category.name %></option>
+        <% } %>
+      </select>
+    </div>
 
-    <div class="col-md-1 col-2 d-grid gap-2">
+    <div class="col-md-2 col-12 d-grid gap-2">
       <button type="submit" class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </form>
-
   <div class="row mt-5">
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Name</th>
+          <th scope="col">Category</th>
           <th scope="col">Description</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <% for(let brand of brands){ %>
+        <% for(let subcategory of subcategories){ %>
 
         <tr>
-          <td><%= brand.name %></td>
-          <td><%= brand.description %></td>
+          <td><%= subcategory.name %></td>
+          <td><%= subcategory.category.name %></td>
+          <td><%= subcategory.description %></td>
           <td>
             <a
-              href="/brands/<%= brand.id %>/edit"
+              href="/subcategories/<%= subcategory.id %>/edit"
               class="btn btn-primary card-link"
               ><i class="bi bi-pencil-square"></i>
             </a>
             <form
               class="d-inline"
-              action="/brands/<%= brand.id %>?_method=DELETE"
+              action="/subcategories/<%= subcategory.id %>?_method=DELETE"
               method="POST"
             >
               <button class="btn btn-danger">

@@ -19,6 +19,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 //Routes
 const productRoutes = require("./routes/products");
 const brandRoutes = require("./routes/brands");
+const categoryRoutes = require("./routes/categories");
+const subcategoryRoutes = require("./routes/subcategories");
 
 //DB
 const dbUrl = "mongodb://localhost:27017/eshopper";
@@ -104,7 +106,7 @@ const connectSrcUrls = [
 ];
 const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
 
-/* app.use(
+app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
@@ -125,13 +127,24 @@ const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
       childSrc: ["blob:"],
     },
   })
-); */
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/products", productRoutes);
+app.use((req, res, next) => {
+  console.log(req.query);
+  /*   res.locals.signedInUser = req.user;
+   */
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 app.use("/brands", brandRoutes);
+app.use("/products", productRoutes);
+app.use("/categories", categoryRoutes);
+app.use("/subcategories", subcategoryRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");

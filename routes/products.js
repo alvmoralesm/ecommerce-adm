@@ -11,8 +11,14 @@ router
 router.get("/search", products.getProductByName);
 
 router.get("/new", products.renderNewForm);
-router.get("/:id/edit", products.renderEditForm);
 
 router.delete("/:id", products.deleteProduct);
+
+router
+  .route("/:id")
+  .put(validateProduct, products.editProduct)
+  .delete(products.deleteProduct);
+
+router.get("/:id/edit", products.renderEditForm);
 
 module.exports = router;

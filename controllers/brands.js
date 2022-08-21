@@ -42,12 +42,11 @@ module.exports.editBrand = catchAsync(async (req, res) => {
     ...req.body.brand,
   });
   await brand.save();
-  req.flash("success", "Succcessfully updated brand!");
+  req.flash("success", "Successfully updated brand!");
   res.redirect(`/brands/`);
 });
 
 module.exports.getBrandByName = catchAsync(async (req, res) => {
-  /* const { name } = req.query; */
   let name = req.query.name;
   name = name.trim();
   let brands;

@@ -36,8 +36,18 @@ module.exports.renderEditForm = catchAsync(async (req, res) => {
 module.exports.deleteProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
   await Product.findByIdAndDelete(id);
-  req.flash("success", "Successfully deleted brand!");
+  req.flash("success", "Successfully deleted product!");
   res.redirect("/products");
+});
+
+module.exports.editProduct = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const product = await Product.findByIdAndUpdate(id, {
+    ...req.body.product,
+  });
+  await product.save();
+  req.flash("success", "Succcessfully updated product!");
+  res.redirect(`/products/`);
 });
 
 module.exports.getProductByName = catchAsync(async (req, res) => {

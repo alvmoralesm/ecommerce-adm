@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row mt-3">
+  <h1 class="text-center"><b>New Subcategory</b></h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/subcategories"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="name">Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="subcategory[name]"
+          id="name"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="category">Category: </label>
+        <select
+          class="form-control form-select"
+          type="text"
+          name="subcategory[category]"
+          id="category"
+          required
+        >
+          <option value="1">-- Select a Category --</option>
+
+          <% for(let category of categories){ %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">Description:</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="subcategory[description]"
+          id="description"
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success btn-block">
+          Add Subcategory
+        </button>
+      </div>
+      <a href="/subcategories">Back To Subcategories</a>
+    </form>
+  </div>
+</div>

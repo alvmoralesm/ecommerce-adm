@@ -26,15 +26,30 @@ const Joi = BaseJoi.extend(extension);
 module.exports.brandSchema = Joi.object({
   brand: Joi.object({
     name: Joi.string().escapeHTML().required(),
-    description: Joi.string().escapeHTML(),
+    description: Joi.string().allow(null, ""),
   }),
 });
 
 module.exports.productSchema = Joi.object({
   product: Joi.object({
     name: Joi.string().escapeHTML().required(),
-    description: Joi.string().escapeHTML(),
+    description: Joi.string().escapeHTML().allow(null, ""),
     price: Joi.number().required().min(0),
     stock: Joi.number().required().min(0),
+  }),
+});
+
+module.exports.categorySchema = Joi.object({
+  category: Joi.object({
+    name: Joi.string().escapeHTML().required(),
+    description: Joi.string().escapeHTML().allow(null, ""),
+  }),
+});
+
+module.exports.subcategorySchema = Joi.object({
+  subcategory: Joi.object({
+    name: Joi.string().escapeHTML().required(),
+    description: Joi.string().escapeHTML().allow(null, ""),
+    category: Joi.string().escapeHTML().required(),
   }),
 });

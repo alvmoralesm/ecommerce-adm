@@ -3,12 +3,12 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-sm-4 col-6">
-      <h1><b>Brands</b></h1>
+      <h1><b>Categories</b></h1>
     </div>
     <div class="col-sm-4 offset-sm-4 col-6">
       <div class="d-grid gap-2">
-        <a href="/brands/new" class="btn btn-success"
-          ><i class="bi bi-plus-circle"></i> Add Brand</a
+        <a href="/categories/new" class="btn btn-success"
+          ><i class="bi bi-plus-circle"></i> Add Category</a
         >
       </div>
     </div>
@@ -16,7 +16,7 @@
 
   <form
     class="row row-cols-lg-auto g-3 align-items-center mt-5"
-    action="/brands/search"
+    action="/categories/search"
     method="GET"
   >
     <div class="col-md-5 col-10">
@@ -28,14 +28,12 @@
         placeholder="Name"
       />
     </div>
-
     <div class="col-md-1 col-2 d-grid gap-2">
       <button type="submit" class="btn btn-secondary">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </form>
-
   <div class="row mt-5">
     <table class="table">
       <thead>
@@ -46,20 +44,20 @@
         </tr>
       </thead>
       <tbody>
-        <% for(let brand of brands){ %>
+        <% for(let category of categories){ %>
 
         <tr>
-          <td><%= brand.name %></td>
-          <td><%= brand.description %></td>
+          <td><%= category.name %></td>
+          <td><%= category.description %></td>
           <td>
             <a
-              href="/brands/<%= brand.id %>/edit"
+              href="/categories/<%= category.id %>/edit"
               class="btn btn-primary card-link"
               ><i class="bi bi-pencil-square"></i>
             </a>
             <form
               class="d-inline"
-              action="/brands/<%= brand.id %>?_method=DELETE"
+              action="/categories/<%= category.id %>?_method=DELETE"
               method="POST"
             >
               <button class="btn btn-danger">

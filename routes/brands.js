@@ -9,8 +9,6 @@ router.get("/search", brands.getBrandByName);
 
 router.get("/new", brands.renderNewForm);
 
-router.delete("/:id", brands.deleteBrand);
-
 router
   .route("/:id")
   .put(validateBrand, brands.editBrand)
