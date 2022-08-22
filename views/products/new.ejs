@@ -46,6 +46,56 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="brand">Brand: </label>
+        <select
+          class="form-control form-select"
+          type="text"
+          name="product[brand]"
+          id="brand"
+          required
+        >
+          <option value="">-- Select a Brand --</option>
+          <% for (let brand of brands){%>
+          <option value="<%= brand.id %>"><%= brand.name %></option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="category">Category: </label>
+        <select
+          class="form-control form-select"
+          type="text"
+          name="product[category]"
+          id="category"
+          required
+        >
+          <option value="0">-- Select a Category --</option>
+          <% for (let category of categories){%>
+          <option value="<%= category.id %>"><%= category.name %></option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="subcategory">Subcategory: </label>
+        <select
+          class="form-control form-select"
+          type="text"
+          name="product[subcategory]"
+          id="subcategory"
+          required
+        >
+          <option value="">-- Select a Subcategory --</option>
+
+          <!-- <% for (let subcategory of subcategories){%>
+          <option value="<%= subcategory.id %>"><%= subcategory.name %></option>
+          <% } %> <%= subcategories %> -->
+        </select>
+      </div>
+
       <div class="mb-3">
         <button type="submit" class="btn btn-success btn-block">
           Add Product
@@ -55,3 +105,31 @@
     </form>
   </div>
 </div>
+
+<script>
+  const category = document.getElementById("category");
+  const subcategory = document.getElementById("subcategory");
+
+  const fetchSubcategories = async () => {
+    const categoryId = document.getElementById("category").value;
+
+    const res = await fetch(
+      "http://localhost:3000/products/get_subcategories/" + categoryId
+    );
+    const data = await res.json();
+
+    fillSubcategories(data);
+  };
+
+  const fillSubcategories = (data) => {
+    let html = `<option value="">-- Select a Subcategory --</option>`;
+
+    for (let i = 0; i < data.length; i++) {
+      html += `<option value="${data[i]._id}">${data[i].name}</option>`;
+    }
+
+    subcategory.innerHTML = html;
+  };
+
+  category.addEventListener("change", fetchSubcategories);
+</script>

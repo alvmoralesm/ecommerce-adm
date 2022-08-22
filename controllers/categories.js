@@ -53,7 +53,6 @@ module.exports.editCategory = catchAsync(async (req, res) => {
 });
 
 module.exports.getCategoryByName = catchAsync(async (req, res) => {
-  /* const { name } = req.query; */
   let name = req.query.name;
   name = name.trim();
   let categories;

@@ -38,14 +38,16 @@ module.exports.createSubcategory = catchAsync(async (req, res, next) => {
 });
 
 module.exports.renderEditForm = catchAsync(async (req, res) => {
-  const subcategory = await Subcategory.findById(req.params.id);
+  const subcategory = await Subcategory.findById(req.params.id).populate(
+    "category"
+  );
   const categories = await Category.find({});
 
   if (!subcategory) {
     req.flash("error", "Subcategory Not Found!");
     return res.redirect("/subcategories");
   }
-  res.render("subcategories/edit", { subcategory, categories });
+  res.render("subcategories/edit", { subcategory, categories, mongoose });
 });
 
 module.exports.deleteSubcategory = catchAsync(async (req, res) => {
@@ -62,6 +64,7 @@ module.exports.editSubCategory = catchAsync(async (req, res) => {
   const subcategory = await Subcategory.findByIdAndUpdate(id, {
     ...req.body.subcategory,
   });
+
   await subcategory.save();
   req.flash("success", "Successfully updated subcategory!");
   res.redirect(`/subcategories/`);
@@ -76,8 +79,6 @@ module.exports.getSubcategoryByFilter = catchAsync(async (req, res) => {
   let subcategories;
   const categories = await Category.find({});
   const regex = new RegExp(name, "i"); // i for case insensitive
-
-  console.log(name + category);
 
   if (category && name) {
     subcategories = await Subcategory.find({

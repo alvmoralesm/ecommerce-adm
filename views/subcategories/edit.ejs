@@ -21,6 +21,25 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
+
+     
+      <div class="mb-3">
+        <label class="form-label" for="category">Category: </label>
+        <select
+          class="form-control form-select"
+          type="text"
+          name="subcategory[category]"
+          id="category"
+          required
+        >
+          <option value="">-- Select a Category --</option>
+          <% for(let category of categories){ %>
+          <option value="<%= category._id %>" <%= category.id === subcategory.category.id ? "Selected"
+            : ""%>><%= category.name %></option>
+
+          <% } %>
+        </select>
+      </div>
       <div class="mb-3">
         <label class="form-label" for="description">Description:</label>
         <textarea

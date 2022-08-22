@@ -18,6 +18,7 @@ module.exports.validateBrand = (req, res, next) => {
 };
 
 module.exports.validateProduct = (req, res, next) => {
+  console.log(req.body);
   const { error } = productSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
@@ -38,6 +39,7 @@ module.exports.validateCategory = (req, res, next) => {
 };
 
 module.exports.validateSubcategory = (req, res, next) => {
+  console.log(req.body);
   const { error } = subcategorySchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");

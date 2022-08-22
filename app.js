@@ -15,6 +15,7 @@ const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const multer = require("multer");
 
 //Routes
 const productRoutes = require("./routes/products");
@@ -82,7 +83,7 @@ const scriptSrcUrls = [
   "https://cdn.jsdelivr.net/",
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://www.youtube.com/",
-  "https://cdn.jsdelivr.net/npm/",
+  "https://cdn.jsdelivr.net/",
 ];
 const styleSrcUrls = [
   "https://kit-free.fontawesome.com/",
@@ -94,7 +95,7 @@ const styleSrcUrls = [
   "https://cdn.jsdelivr.net/",
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://www.youtube.com/",
-  "https://cdn.jsdelivr.net/npm/",
+  "https://cdn.jsdelivr.net/",
 ];
 const connectSrcUrls = [
   "https://*.tiles.mapbox.com",
@@ -102,7 +103,7 @@ const connectSrcUrls = [
   "https://events.mapbox.com",
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://www.youtube.com/",
-  "https://cdn.jsdelivr.net/npm/",
+  "https://cdn.jsdelivr.net/",
 ];
 const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
 
@@ -122,8 +123,11 @@ app.use(
         "https://res.cloudinary.com/dzuljpmwj/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
         "https://images.unsplash.com/",
       ],
-      fontSrc: ["'self'", ...fontSrcUrls],
-      mediaSrc: ["https://res.cloudinary.com/dv5vm4sqh/"],
+      fontSrc: ["'self'", "https://cdn.jsdelivr.net/", ...fontSrcUrls],
+      mediaSrc: [
+        "https://res.cloudinary.com/dv5vm4sqh/",
+        "https://cdn.jsdelivr.net/",
+      ],
       childSrc: ["blob:"],
     },
   })
