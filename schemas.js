@@ -39,7 +39,8 @@ module.exports.productSchema = Joi.object({
     brand: Joi.string().escapeHTML().allow(null, ""),
     category: Joi.string().escapeHTML().allow(null, ""),
     subcategory: Joi.string().escapeHTML().allow(null, ""),
-  }),
+  }).required(),
+  deleteImages: Joi.array(),
 });
 
 module.exports.categorySchema = Joi.object({

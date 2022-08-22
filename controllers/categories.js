@@ -42,7 +42,7 @@ module.exports.deleteCategory = catchAsync(async (req, res) => {
   res.redirect("/categories");
 });
 
-module.exports.editCategory = catchAsync(async (req, res) => {
+module.exports.updateCategory = catchAsync(async (req, res) => {
   const { id } = req.params;
   const category = await Category.findByIdAndUpdate(id, {
     ...req.body.category,

@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const products = require("../controllers/products");
 const { validateProduct } = require("../middleware");
-const Subcategory = require("../models/subcategories");
+const multer = require("multer");
+const { storage } = require("../cloudinary/index");
+const upload = multer({ storage });
 
 router
   .route("/")
   .get(products.index)
-  .post(validateProduct, products.createProduct);
+  .post(upload.array("image"), validateProduct, products.createProduct);
 
 router.get("/search", products.getProductByFilter);
 
@@ -17,7 +19,8 @@ router.delete("/:id", products.deleteProduct);
 
 router
   .route("/:id")
-  .put(validateProduct, products.editProduct)
+  .get(products.productDetails)
+  .put(upload.array("image"), validateProduct, products.updateProduct)
   .delete(products.deleteProduct);
 
 router.get("/:id/edit", products.renderEditForm);

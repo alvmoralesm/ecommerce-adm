@@ -14,7 +14,7 @@ router.get("/new", categories.renderNewForm);
 
 router
   .route("/:id")
-  .put(validateCategory, categories.editCategory)
+  .put(validateCategory, categories.updateCategory)
   .delete(categories.deleteCategory);
 
 router.get("/:id/edit", categories.renderEditForm);

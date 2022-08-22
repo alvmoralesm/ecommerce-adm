@@ -59,7 +59,7 @@ module.exports.deleteSubcategory = catchAsync(async (req, res) => {
   res.redirect("/subcategories");
 });
 
-module.exports.editSubCategory = catchAsync(async (req, res) => {
+module.exports.updateSubCategory = catchAsync(async (req, res) => {
   const { id } = req.params;
   const subcategory = await Subcategory.findByIdAndUpdate(id, {
     ...req.body.subcategory,

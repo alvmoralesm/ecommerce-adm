@@ -11,7 +11,7 @@ router.get("/new", brands.renderNewForm);
 
 router
   .route("/:id")
-  .put(validateBrand, brands.editBrand)
+  .put(validateBrand, brands.updateBrand)
   .delete(brands.deleteBrand);
 
 router.get("/:id/edit", brands.renderEditForm);

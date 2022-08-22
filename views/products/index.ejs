@@ -85,6 +85,11 @@
           <td><%= product.stock %></td>
           <td>
             <a
+              href="/products/<%= product.id %>"
+              class="btn btn-secondary card-link"
+              ><i class="bi bi-eye"></i>
+            </a>
+            <a
               href="/products/<%= product.id %>/edit"
               class="btn btn-primary card-link"
               ><i class="bi bi-pencil-square"></i>

@@ -14,7 +14,7 @@ router.get("/new", subcategories.renderNewForm);
 
 router
   .route("/:id")
-  .put(validateSubcategory, subcategories.editSubCategory)
+  .put(validateSubcategory, subcategories.updateSubCategory)
   .delete(subcategories.deleteSubcategory);
 
 router.get("/:id/edit", subcategories.renderEditForm);

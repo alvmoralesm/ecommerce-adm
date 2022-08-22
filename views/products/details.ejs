@@ -1,0 +1,100 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12">
+    <div class="card mt-3 mb-3">
+      <div
+        id="campgrounCarousel"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <% product.images.forEach((img,i) => { %>
+          <div class="carousel-item <%=i===0 ? 'active' : '' %>">
+            <img
+              src="<%= img.url %>"
+              class="card-img d-block w-100 rounded-top"
+              alt="..."
+            />
+          </div>
+          <% }) %>
+        </div>
+        <% if (product.images.length > 1) {%>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#campgrounCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#campgrounCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <% } %>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text"><%= product.description %></p>
+      </div>
+      <ul class="list-group list-group-flush form-floating">
+        <div class="form-floating list-group-item">
+          <input
+            type="text"
+            readonly
+            class="form-control-plaintext"
+            id="product"
+            placeholder=""
+            value="<%= product.name %>"
+          />
+          <label for="brand">Product</label>
+        </div>
+        <div class="form-floating list-group-item">
+          <input
+            type="text"
+            readonly
+            class="form-control-plaintext"
+            id="brand"
+            placeholder=""
+            value="<%= product.brand.name %>"
+          />
+          <label for="brand">Brand</label>
+        </div>
+        <div class="form-floating list-group-item">
+          <input
+            type="text"
+            readonly
+            class="form-control-plaintext"
+            id="category"
+            placeholder=""
+            value="<%= product.category.name %>"
+          />
+          <label for="brand">Category</label>
+        </div>
+        <div class="form-floating list-group-item">
+          <input
+            type="text"
+            readonly
+            class="form-control-plaintext"
+            id="subcategory"
+            placeholder=""
+            value="<%= product.subcategory.name %>"
+          />
+          <label for="brand">Subcategory</label>
+        </div>
+        <li class="list-group-item">
+          <a href="/products" class="btn btn-danger float-end"
+            ><i class="bi bi-arrow-return-left"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

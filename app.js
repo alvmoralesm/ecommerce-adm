@@ -15,7 +15,6 @@ const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
-const multer = require("multer");
 
 //Routes
 const productRoutes = require("./routes/products");
@@ -37,6 +36,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -132,9 +132,6 @@ app.use(
     },
   })
 );
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.use((req, res, next) => {
   console.log(req.query);

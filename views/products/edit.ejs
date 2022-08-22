@@ -2,14 +2,15 @@
 
 <div class="row mt-3">
   <h1 class="text-center"><b>Edit Product</b></h1>
-  <div class="col-md-6 offset-md-3">
+  <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1">
     <form
       action="/products/<%= product.id %>?_method=PUT"
       method="POST"
       novalidate
       class="validated-form"
+      enctype="multipart/form-data"
     >
-      <div class="mb-3">
+      <div class="row mb-3">
         <label class="form-label" for="name">Name:</label>
         <input
           class="form-control"
@@ -21,7 +22,7 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <div class="mb-3">
+      <div class="row mb-3">
         <label class="form-label" for="description">Description:</label>
         <textarea
           class="form-control"
@@ -35,7 +36,37 @@
         <div class="valid-feedback">Looks good!</div>
       </div>
 
-      <div class="mb-3">
+      <div class="row mb-3">
+        <label for="images" class="form-label">Image/s:</label>
+        <input
+          class="form-control"
+          type="file"
+          name="image"
+          id="image"
+          multiple
+        />
+      </div>
+
+      <div class="row mb-3">
+        <% product.images.forEach(function(img, i){ %>
+
+        <div class="card col-md-3 col-4">
+          <img class="" src="<%= img.url %> " alt="" style="height: 150px" />
+
+          <div class="form-check-inline mx-auto">
+            <label for="image-<%= i  %>">Delete?</label>
+            <input
+              type="checkbox"
+              id="image-<%= i  %>"
+              name="deleteImages[]"
+              value="<%=img.filename  %>"
+            />
+          </div>
+        </div>
+        <% })%>
+      </div>
+
+      <div class="row mb-3">
         <label class="form-label" for="price">Price:</label>
         <input
           class="form-control"
@@ -46,7 +77,7 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <div class="mb-3">
+      <div class="row mb-3">
         <label class="form-label" for="price">Stock:</label>
         <input
           class="form-control"
@@ -58,7 +89,7 @@
 
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <div class="mb-3">
+      <div class="row mb-3">
         <button type="submit" class="btn btn-success btn-block">
           Edit Product
         </button>
