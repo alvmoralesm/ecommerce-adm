@@ -88,7 +88,7 @@
           id="category"
           required
         >
-          <option value="0">-- Select a Category --</option>
+          <option value="">-- Select a Category --</option>
           <% for (let category of categories){%>
           <option value="<%= category.id %>"><%= category.name %></option>
           <% } %>
@@ -113,7 +113,7 @@
       </div>
 
       <div class="mb-3">
-        <button type="submit" class="btn btn-success btn-block">
+        <button id="btn-submit" type="submit" class="btn btn-success btn-block">
           Add Product
         </button>
       </div>

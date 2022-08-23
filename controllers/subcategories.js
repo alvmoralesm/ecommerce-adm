@@ -25,7 +25,7 @@ module.exports.renderNewForm = catchAsync(async (req, res) => {
 });
 
 module.exports.createSubcategory = catchAsync(async (req, res, next) => {
-  const subcategory = new Subcategory(req.body.subcategory);
+  const subcategory = new Subcategory(req.body);
   const category = await Category.findById(subcategory.category);
 
   category.subcategories.push(subcategory);
@@ -62,7 +62,7 @@ module.exports.deleteSubcategory = catchAsync(async (req, res) => {
 module.exports.updateSubCategory = catchAsync(async (req, res) => {
   const { id } = req.params;
   const subcategory = await Subcategory.findByIdAndUpdate(id, {
-    ...req.body.subcategory,
+    ...req.body,
   });
 
   await subcategory.save();

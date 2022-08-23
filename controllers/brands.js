@@ -12,7 +12,7 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createBrand = catchAsync(async (req, res, next) => {
-  const brand = new Brand(req.body.brand);
+  const brand = new Brand(req.body);
 
   await brand.save();
 
@@ -39,7 +39,7 @@ module.exports.deleteBrand = catchAsync(async (req, res) => {
 module.exports.updateBrand = catchAsync(async (req, res) => {
   const { id } = req.params;
   const brand = await Brand.findByIdAndUpdate(id, {
-    ...req.body.brand,
+    ...req.body,
   });
   await brand.save();
   req.flash("success", "Successfully updated brand!");

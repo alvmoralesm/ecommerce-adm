@@ -3,13 +3,19 @@
 <div class="row mt-3">
   <h1 class="text-center"><b>New Brand</b></h1>
   <div class="col-md-6 offset-md-3">
-    <form action="/brands" method="POST" novalidate class="validated-form">
+    <form
+      action="/brands"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="application/x-www-form-urlencoded"
+    >
       <div class="mb-3">
         <label class="form-label" for="name">Name:</label>
         <input
           class="form-control"
           type="text"
-          name="brand[name]"
+          name="name"
           id="name"
           required
         />
@@ -20,7 +26,7 @@
         <textarea
           class="form-control"
           type="text"
-          name="brand[description]"
+          name="description"
           id="description"
         ></textarea>
         <div class="valid-feedback">Looks good!</div>

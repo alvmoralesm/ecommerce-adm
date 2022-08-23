@@ -8,7 +8,7 @@ const ExpressError = require("./utils/ExpressError");
 const Brand = require("./models/brands");
 
 module.exports.validateBrand = (req, res, next) => {
-  const { error } = brandSchema.validate(req.body);
+  const { error } = brandSchema.validate({ brand: req.body });
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -18,8 +18,7 @@ module.exports.validateBrand = (req, res, next) => {
 };
 
 module.exports.validateProduct = (req, res, next) => {
-  console.log(req.body);
-  const { error } = productSchema.validate(req.body);
+  const { error } = productSchema.validate();
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -29,7 +28,7 @@ module.exports.validateProduct = (req, res, next) => {
 };
 
 module.exports.validateCategory = (req, res, next) => {
-  const { error } = categorySchema.validate(req.body);
+  const { error } = categorySchema.validate({ category: req.body });
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -39,8 +38,7 @@ module.exports.validateCategory = (req, res, next) => {
 };
 
 module.exports.validateSubcategory = (req, res, next) => {
-  console.log(req.body);
-  const { error } = subcategorySchema.validate(req.body);
+  const { error } = subcategorySchema.validate({ subcategory: req.body });
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);

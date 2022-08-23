@@ -17,10 +17,10 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 
 //Routes
-const productRoutes = require("./routes/products");
 const brandRoutes = require("./routes/brands");
 const categoryRoutes = require("./routes/categories");
 const subcategoryRoutes = require("./routes/subcategories");
+const productRoutes = require("./routes/products");
 
 //DB
 const dbUrl = "mongodb://localhost:27017/eshopper";
@@ -39,6 +39,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "node_modules")));
+
 app.use(
   mongoSanitize({
     replaceWith: "_",
@@ -143,9 +145,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/brands", brandRoutes);
-app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/subcategories", subcategoryRoutes);
+app.use("/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");

@@ -12,7 +12,7 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createCategory = catchAsync(async (req, res, next) => {
-  const category = new Category(req.body.category);
+  const category = new Category(req.body);
 
   await category.save();
 
@@ -45,7 +45,7 @@ module.exports.deleteCategory = catchAsync(async (req, res) => {
 module.exports.updateCategory = catchAsync(async (req, res) => {
   const { id } = req.params;
   const category = await Category.findByIdAndUpdate(id, {
-    ...req.body.category,
+    ...req.body,
   });
   await category.save();
   req.flash("success", "Successfully updated category!");

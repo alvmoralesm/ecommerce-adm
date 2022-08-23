@@ -34,8 +34,8 @@ module.exports.productSchema = Joi.object({
   product: Joi.object({
     name: Joi.string().escapeHTML().required(),
     description: Joi.string().escapeHTML().allow(null, ""),
-    price: Joi.number().required().min(0),
-    stock: Joi.number().required().min(0),
+    price: Joi.number().min(0).required(),
+    stock: Joi.number().min(0).required(),
     brand: Joi.string().escapeHTML().allow(null, ""),
     category: Joi.string().escapeHTML().allow(null, ""),
     subcategory: Joi.string().escapeHTML().allow(null, ""),
