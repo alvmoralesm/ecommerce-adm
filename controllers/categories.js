@@ -9,7 +9,9 @@ module.exports.index = catchAsync(async (req, res) => {
 });
 
 module.exports.renderNewForm = (req, res) => {
-  res.render("categories/new");
+  const title = "New Category";
+
+  res.render("categories/new", { title });
 };
 
 module.exports.createCategory = catchAsync(async (req, res, next) => {
@@ -26,14 +28,14 @@ module.exports.renderEditForm = catchAsync(async (req, res) => {
     path: "subcategories",
   });
 
-  console.log(category.subcategories);
+  const title = `Edit ${category.name}`;
 
   if (!category) {
     req.flash("error", "Category Not Found!");
     return res.redirect("/categories");
   }
 
-  res.render("categories/edit", { category });
+  res.render("categories/edit", { category, title });
 });
 
 module.exports.deleteCategory = catchAsync(async (req, res) => {

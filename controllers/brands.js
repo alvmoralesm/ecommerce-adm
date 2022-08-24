@@ -9,7 +9,9 @@ module.exports.index = catchAsync(async (req, res) => {
 });
 
 module.exports.renderNewForm = (req, res) => {
-  res.render("brands/new");
+  const title = "New Brand";
+
+  res.render("brands/new", { title });
 };
 
 module.exports.createBrand = catchAsync(async (req, res, next) => {
@@ -23,11 +25,13 @@ module.exports.createBrand = catchAsync(async (req, res, next) => {
 
 module.exports.renderEditForm = catchAsync(async (req, res) => {
   const brand = await Brand.findById(req.params.id);
+  const title = `Edit ${brand.name}`;
+
   if (!brand) {
     req.flash("error", "Brand Not Found!");
     return res.redirect("/brands");
   }
-  res.render("brands/edit", { brand });
+  res.render("brands/edit", { brand, title });
 });
 
 module.exports.deleteBrand = catchAsync(async (req, res) => {

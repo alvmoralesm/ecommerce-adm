@@ -1,7 +1,6 @@
 const Subcategory = require("../models/subcategories");
 const Category = require("../models/categories");
 const catchAsync = require("../utils/catchAsync");
-const mongoose = require("mongoose");
 
 module.exports.index = catchAsync(async (req, res) => {
   const subcategories = await Subcategory.find({}).populate("category");
@@ -21,8 +20,9 @@ module.exports.index = catchAsync(async (req, res) => {
 
 module.exports.renderNewForm = catchAsync(async (req, res) => {
   const categories = await Category.find({});
+  const title = "New Subcategory";
 
-  res.render("subcategories/new", { categories });
+  res.render("subcategories/new", { categories, title });
 });
 
 module.exports.createSubcategory = catchAsync(async (req, res, next) => {
@@ -43,12 +43,17 @@ module.exports.renderEditForm = catchAsync(async (req, res) => {
     "category"
   );
   const categories = await Category.find({});
+  const title = `Edit ${subcategory.name}`;
 
   if (!subcategory) {
     req.flash("error", "Subcategory Not Found!");
     return res.redirect("/subcategories");
   }
-  res.render("subcategories/edit", { subcategory, categories, mongoose });
+  res.render("subcategories/edit", {
+    subcategory,
+    categories,
+    title,
+  });
 });
 
 module.exports.deleteSubcategory = catchAsync(async (req, res) => {

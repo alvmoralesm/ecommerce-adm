@@ -23,12 +23,13 @@ module.exports.renderNewForm = catchAsync(async (req, res) => {
   const categories = await Category.find({});
   const subcategories = await Subcategory.find({});
 
-  res.render("products/new", { brands, categories, subcategories });
+  const title = "New Product";
+
+  res.render("products/new", { brands, categories, subcategories, title });
 });
 
 module.exports.createProduct = catchAsync(async (req, res) => {
   const product = new Product(req.body.product);
-  console.log(product);
   product.images = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,
@@ -42,12 +43,13 @@ module.exports.createProduct = catchAsync(async (req, res) => {
 
 module.exports.renderEditForm = catchAsync(async (req, res) => {
   const product = await Product.findById(req.params.id);
+  const title = `Edit ${product.name}`;
 
   if (!product) {
     req.flash("error", "Product Not Found!");
     return res.redirect("/products");
   }
-  res.render("products/edit", { product });
+  res.render("products/edit", { product, title });
 });
 
 module.exports.productDetails = catchAsync(async (req, res) => {
@@ -56,12 +58,13 @@ module.exports.productDetails = catchAsync(async (req, res) => {
     .populate("category")
     .populate("subcategory");
 
-  console.log(product);
+  const title = product.name;
+
   if (!product) {
     req.flash("error", "Product Not Found!");
     return res.redirect("/products");
   }
-  res.render("products/details", { product });
+  res.render("products/details", { product, title });
 });
 
 module.exports.deleteProduct = catchAsync(async (req, res) => {
@@ -95,9 +98,7 @@ module.exports.updateProduct = catchAsync(async (req, res) => {
       },
       { new: true }
     );
-    console.log(product);
   }
-  console.log(req.body);
   req.flash("success", "Succcessfully updated product!");
-  res.redirect(`/products/`);
+  res.redirect("/products/");
 });
