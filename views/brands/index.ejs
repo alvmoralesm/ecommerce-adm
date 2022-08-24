@@ -54,11 +54,11 @@
           <td>
             <a
               href="/brands/<%= brand.id %>/edit"
-              class="btn btn-primary card-link"
+              class="btn btn-primary btn-edit card-link"
               ><i class="bi bi-pencil-square"></i>
             </a>
             <form
-              class="d-inline"
+              class="d-inline form-delete"
               action="/brands/<%= brand.id %>?_method=DELETE"
               method="POST"
             >

@@ -63,15 +63,15 @@
           <td>
             <a
               href="/subcategories/<%= subcategory.id %>/edit"
-              class="btn btn-primary card-link"
+              class="btn btn-primary btn-edit card-link"
               ><i class="bi bi-pencil-square"></i>
             </a>
             <form
-              class="d-inline"
+              class="d-inline form-delete"
               action="/subcategories/<%= subcategory.id %>?_method=DELETE"
               method="POST"
             >
-              <button class="btn btn-danger">
+              <button class="btn btn-danger btn-delete">
                 <i class="bi bi-trash-fill"></i>
               </button>
             </form>

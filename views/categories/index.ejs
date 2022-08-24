@@ -52,11 +52,11 @@
           <td>
             <a
               href="/categories/<%= category.id %>/edit"
-              class="btn btn-primary edit card-link"
+              class="btn btn-primary btn-edit edit card-link"
               ><i class="bi bi-pencil-square"></i>
             </a>
             <form
-              class="d-inline"
+              class="d-inline form-delete"
               action="/categories/<%= category.id %>?_method=DELETE"
               method="POST"
             >
