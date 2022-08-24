@@ -3,8 +3,9 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports.index = catchAsync(async (req, res) => {
   const categories = await Category.find({});
+  const title = "Categories";
 
-  res.render("categories/index", { categories });
+  res.render("categories/index", { categories, title });
 });
 
 module.exports.renderNewForm = (req, res) => {
@@ -50,19 +51,4 @@ module.exports.updateCategory = catchAsync(async (req, res) => {
   await category.save();
   req.flash("success", "Successfully updated category!");
   res.redirect(`/categories/`);
-});
-
-module.exports.getCategoryByName = catchAsync(async (req, res) => {
-  let name = req.query.name;
-  name = name.trim();
-  let categories;
-
-  if (!name) {
-    categories = await Category.find({});
-  } else if (name) {
-    const regex = new RegExp(name, "i"); // i for case insensitive
-    categories = await Category.find({ name: { $regex: regex } });
-  }
-
-  res.render("categories", { categories });
 });

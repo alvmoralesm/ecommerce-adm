@@ -11,8 +11,6 @@ router
   .get(products.index)
   .post(upload.array("image"), validateProduct, products.createProduct);
 
-router.get("/search", products.getProductByFilter);
-
 router.get("/new", products.renderNewForm);
 
 router.delete("/:id", products.deleteProduct);
@@ -24,7 +22,5 @@ router
   .delete(products.deleteProduct);
 
 router.get("/:id/edit", products.renderEditForm);
-
-router.get("/get_subcategories/:id", products.getSubcategories);
 
 module.exports = router;

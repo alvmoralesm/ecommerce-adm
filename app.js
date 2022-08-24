@@ -112,7 +112,7 @@ const connectSrcUrls = [
 ];
 const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
 
-/* app.use(
+app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
@@ -136,7 +136,7 @@ const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
       childSrc: ["blob:"],
     },
   })
-); */
+);
 
 app.use((req, res, next) => {
   console.log(req.query);

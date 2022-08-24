@@ -8,8 +8,6 @@ router
   .get(subcategories.index)
   .post(validateSubcategory, subcategories.createSubcategory);
 
-router.get("/search", subcategories.getSubcategoryByFilter);
-
 router.get("/new", subcategories.renderNewForm);
 
 router

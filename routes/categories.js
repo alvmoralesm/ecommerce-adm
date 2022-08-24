@@ -8,8 +8,6 @@ router
   .get(categories.index)
   .post(validateCategory, categories.createCategory);
 
-router.get("/search", categories.getCategoryByName);
-
 router.get("/new", categories.renderNewForm);
 
 router

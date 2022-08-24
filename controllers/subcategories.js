@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 module.exports.index = catchAsync(async (req, res) => {
   const subcategories = await Subcategory.find({}).populate("category");
   const categories = await Category.find({});
+  const title = "Subcategories";
 
   subcategories.map((subcategory) => {
     for (let category of categories) {
@@ -15,7 +16,7 @@ module.exports.index = catchAsync(async (req, res) => {
     }
   });
 
-  res.render("subcategories", { subcategories, categories });
+  res.render("subcategories", { subcategories, categories, title });
 });
 
 module.exports.renderNewForm = catchAsync(async (req, res) => {
@@ -68,37 +69,4 @@ module.exports.updateSubCategory = catchAsync(async (req, res) => {
   await subcategory.save();
   req.flash("success", "Successfully updated subcategory!");
   res.redirect(`/subcategories/`);
-});
-
-module.exports.getSubcategoryByFilter = catchAsync(async (req, res) => {
-  /* const { name } = req.query; */
-  let { name, category } = req.query;
-  name = name.trim();
-  category = category.trim();
-
-  let subcategories;
-  const categories = await Category.find({});
-  const regex = new RegExp(name, "i"); // i for case insensitive
-
-  if (category && name) {
-    subcategories = await Subcategory.find({
-      name: { $regex: regex },
-      category: mongoose.Types.ObjectId(category),
-    }).populate("category");
-  } else if (category) {
-    if (category == 1) {
-      subcategories = await Subcategory.find({});
-    }
-    subcategories = await Subcategory.find({ category: category }).populate(
-      "category"
-    );
-  } else if (name) {
-    subcategories = await Subcategory.find({
-      name: { $regex: regex },
-    }).populate("category");
-  } else if (!category && !name) {
-    subcategories = await Subcategory.find({}).populate("category");
-  }
-
-  res.render("subcategories", { subcategories, categories });
 });

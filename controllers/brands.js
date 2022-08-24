@@ -3,8 +3,9 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports.index = catchAsync(async (req, res) => {
   const brands = await Brand.find({});
+  const title = "Brands";
 
-  res.render("brands/index", { brands });
+  res.render("brands/index", { brands, title });
 });
 
 module.exports.renderNewForm = (req, res) => {
@@ -44,19 +45,4 @@ module.exports.updateBrand = catchAsync(async (req, res) => {
   await brand.save();
   req.flash("success", "Successfully updated brand!");
   res.redirect(`/brands/`);
-});
-
-module.exports.getBrandByName = catchAsync(async (req, res) => {
-  let name = req.query.name;
-  name = name.trim();
-  let brands;
-
-  if (!name) {
-    brands = await Brand.find({});
-  } else if (name) {
-    const regex = new RegExp(name, "i"); // i for case insensitive
-    brands = await Brand.find({ name: { $regex: regex } });
-  }
-
-  res.render("brands", { brands });
 });
