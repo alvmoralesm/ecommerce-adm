@@ -1,140 +1,84 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container">
-  <div class="row mt-3">
-    <div class="col-sm-4 col-6">
-      <h1><b>Products</b></h1>
-    </div>
-    <div class="col-sm-4 offset-sm-4 col-6">
-      <div class="d-grid gap-2">
-        <a href="/products/new" class="btn btn-success"
-          ><i class="bi bi-plus-circle"></i> Add Product</a
-        >
-      </div>
+<div class="row">
+  <div class="col-sm-4 col-6">
+    <h1><b>Products</b></h1>
+  </div>
+  <div class="col-sm-4 offset-sm-4 col-6">
+    <div class="d-grid gap-2">
+      <a href="/products/new" class="btn btn-success"
+        ><i class="bi bi-plus-circle"></i> Add Product</a
+      >
     </div>
   </div>
+</div>
 
-  <form
-    class="row row-cols-lg-auto g-3 align-items-center mt-5"
-    action="/products/search"
-    method="GET"
+<div class="row table-responsive mt-5">
+  <table
+    id="example"
+    class="display table table-striped table-hover responsive nowrap"
+    style="width: 100%"
   >
-    <div class="col-md-2 col-12">
-      <input
-        class="form-control"
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Name"
-      />
-    </div>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Category</th>
+        <th scope="col">Subcategory</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+  </table>
+</div>
 
-    <div class="col-md-3 col-12">
-      <select class="form-select" name="brand" id="brand">
-        <option value="">-- Select Brand --</option>
-        <% for(let brand of brands){ %>
-        <option value="<%= brand.id %> "><%= brand.name %></option>
-        <% } %>
-      </select>
-    </div>
+<%- include("../partials/jQueryScriptsInit") %>
 
-    <div class="col-md-3 col-12">
-      <select class="form-select" name="category" id="category">
-        <option value="">-- Select Category --</option>
-        <% for(let category of categories){ %>
-        <option value="<%= category.id %> "><%= category.name %></option>
-        <% } %>
-      </select>
-    </div>
+<script src="/js/currencyFormatter.js"></script>
+<script>
+  let dataSet = <%- JSON.stringify(products) %>;
 
-    <div class="col-md-3 col-12">
-      <select class="form-select" name="subcategory" id="subcategory">
-        <option value="">-- Select Subcategory --</option>
-      </select>
-    </div>
-    <div class="col-md-1 col-12 d-grid gap-2">
-      <button type="submit" class="btn btn-secondary">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </form>
-  <div class="row table-responsive mt-5">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Brand</th>
-          <th scope="col">Category</th>
-          <th scope="col">Subcategory</th>
-          <th scope="col">Price</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let product of products){ %>
-
-        <tr>
-          <td><%= product.name %></td>
-          <td><%= product.description %></td>
-          <td><%= product.brand.name %></td>
-          <td><%= product.category.name %></td>
-          <td><%= product.subcategory.name %></td>
-          <td><%= formatter.format(product.price) %></td>
-          <td><%= product.stock %></td>
-          <td>
-            <a
-              href="/products/<%= product.id %>"
-              class="btn btn-secondary card-link"
-              ><i class="bi bi-eye"></i>
-            </a>
-            <a
-              href="/products/<%= product.id %>/edit"
-              class="btn btn-primary btn-edit card-link"
-              ><i class="bi bi-pencil-square"></i>
-            </a>
-            <form
+  $("#example").DataTable({
+    data:dataSet,
+    dataSrc: "",
+    responsive: true,
+    columns: [
+      { data: "name" },
+      { data: "description" },
+      { data: "brand.name" },
+      { data: "category.name" },
+      { data: "subcategory.name" },{
+        data: null,
+        render: function (data) {
+          return (
+            formatter.format(data.price)
+            );
+        },
+      },
+      { data: "stock" },
+      {
+        data: null,
+        render: function (data) {
+          return (
+            `<a
+            href="/products/${data._id} %>"
+            class="btn btn-secondary card-link"
+            ><i class="bi bi-eye"></i>
+          </a>
+          <a href="/products/${data._id}/edit" class="btn btn-primary btn-edit edit card-link"  ><i class="bi bi-pencil-square"></i></a><form
               class="d-inline form-delete"
-              action="/products/<%= product.id %>?_method=DELETE"
+              action="/products/${data._id}?_method=DELETE"
               method="POST"
             >
               <button class="btn btn-danger">
                 <i class="bi bi-trash-fill"></i>
               </button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script>
-  const category = document.getElementById("category");
-  const subcategory = document.getElementById("subcategory");
-
-  const fetchSubcategories = async () => {
-    const categoryId = document.getElementById("category").value;
-
-    const res = await fetch(
-      "http://localhost:3000/products/get_subcategories/" + categoryId
-    );
-    const data = await res.json();
-
-    fillSubcategories(data);
-  };
-
-  const fillSubcategories = (data) => {
-    let html = `<option value="">-- Select Subcategory --</option>`;
-
-    for (let i = 0; i < data.length; i++) {
-      html += `<option value="${data[i]._id}">${data[i].name}</option>`;
-    }
-
-    subcategory.innerHTML = html;
-  };
-
-  category.addEventListener("change", fetchSubcategories);
+            </form>`
+          );
+        },
+      },
+    ],
+  });
 </script>

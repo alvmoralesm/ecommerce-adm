@@ -1,75 +1,61 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container">
-  <div class="row mt-3">
-    <div class="col-sm-4 col-6">
-      <h1><b>Brands</b></h1>
-    </div>
-    <div class="col-sm-4 offset-sm-4 col-6">
-      <div class="d-grid gap-2">
-        <a href="/brands/new" class="btn btn-success"
-          ><i class="bi bi-plus-circle"></i> Add Brand</a
-        >
-      </div>
+<div class="row">
+  <div class="col-sm-4 col-6">
+    <h1><b>Brands</b></h1>
+  </div>
+  <div class="col-sm-4 offset-sm-4 col-6">
+    <div class="d-grid gap-2">
+      <a href="/brands/new" class="btn btn-success"
+        ><i class="bi bi-plus-circle"></i> Add Brand</a
+      >
     </div>
   </div>
+</div>
 
-  <form
-    class="row row-cols-lg-auto g-3 align-items-center mt-5"
-    action="/brands/search"
-    method="GET"
+<div class="row table-responsive mt-5">
+  <table
+    id="example"
+    class="display table table-striped table-hover responsive nowrap"
+    style="width: 100%"
   >
-    <div class="col-md-5 col-10">
-      <input
-        class="form-control"
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Name"
-      />
-    </div>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  </table>
+</div>
 
-    <div class="col-md-1 col-2 d-grid gap-2">
-      <button type="submit" class="btn btn-secondary">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </form>
+<%- include("../partials/jQueryScriptsInit") %>
+<script>
+  let dataSet = <%- JSON.stringify(brands) %>;
 
-  <div class="row table-responsive mt-5">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let brand of brands){ %>
-
-        <tr>
-          <td><%= brand.name %></td>
-          <td><%= brand.description %></td>
-          <td>
-            <a
-              href="/brands/<%= brand.id %>/edit"
-              class="btn btn-primary btn-edit card-link"
-              ><i class="bi bi-pencil-square"></i>
-            </a>
-            <form
+  $("#example").DataTable({
+    data:dataSet,
+    dataSrc: "",
+    responsive: true,
+    columns: [
+      { data: "name" },
+      { data: "description" },
+      {
+        data: null,
+        render: function (data) {
+          return (
+            `<a href="/brands/${data._id}/edit" class="btn btn-primary btn-edit edit card-link"  ><i class="bi bi-pencil-square"></i></a><form
               class="d-inline form-delete"
-              action="/brands/<%= brand.id %>?_method=DELETE"
+              action="/brands/${data._id}?_method=DELETE"
               method="POST"
             >
               <button class="btn btn-danger">
                 <i class="bi bi-trash-fill"></i>
               </button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </div>
-</div>
+            </form>`
+          );
+        },
+      },
+    ],
+  });
+</script>

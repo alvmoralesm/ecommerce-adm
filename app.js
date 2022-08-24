@@ -86,6 +86,8 @@ const scriptSrcUrls = [
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://www.youtube.com/",
   "https://cdn.jsdelivr.net/",
+  "https://code.jquery.com/",
+  "https://cdn.datatables.net/",
 ];
 const styleSrcUrls = [
   "https://kit-free.fontawesome.com/",
@@ -98,6 +100,7 @@ const styleSrcUrls = [
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://www.youtube.com/",
   "https://cdn.jsdelivr.net/",
+  "https://cdn.datatables.net/",
 ];
 const connectSrcUrls = [
   "https://*.tiles.mapbox.com",
@@ -109,7 +112,7 @@ const connectSrcUrls = [
 ];
 const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
 
-app.use(
+/* app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: [],
@@ -133,7 +136,7 @@ app.use(
       childSrc: ["blob:"],
     },
   })
-);
+); */
 
 app.use((req, res, next) => {
   console.log(req.query);

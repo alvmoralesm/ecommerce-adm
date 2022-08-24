@@ -1,7 +1,6 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container">
-  <div class="row mt-3">
+  <div class="row">
     <div class="col-sm-4 col-6">
       <h1><b>Subcategories</b></h1>
     </div>
@@ -14,37 +13,11 @@
     </div>
   </div>
 
-  <form
-    class="row row-cols-lg-auto g-3 align-items-center mt-5"
-    action="/subcategories/search"
-    method="GET"
-  >
-    <div class="col-md-5 col-12">
-      <input
-        class="form-control"
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Name"
-      />
-    </div>
-    <div class="col-md-5 col-12">
-      <select class="form-select" name="category" id="category">
-        <option value="" selected>-- Select Category --</option>
-        <% for(let category of categories){ %>
-        <option value="<%= category.id %> "><%= category.name %></option>
-        <% } %>
-      </select>
-    </div>
-
-    <div class="col-md-2 col-12 d-grid gap-2">
-      <button type="submit" class="btn btn-secondary">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </form>
   <div class="row table-responsive mt-5">
-    <table class="table">
+    <table 
+    id="example"
+    class="display table table-striped table-hover responsive nowrap"
+    style="width: 100%">
       <thead>
         <tr>
           <th scope="col">Name</th>
@@ -53,32 +26,38 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <% for(let subcategory of subcategories){ %>
-
-        <tr>
-          <td><%= subcategory.name %></td>
-          <td><%= subcategory.category.name %></td>
-          <td><%= subcategory.description %></td>
-          <td>
-            <a
-              href="/subcategories/<%= subcategory.id %>/edit"
-              class="btn btn-primary btn-edit card-link"
-              ><i class="bi bi-pencil-square"></i>
-            </a>
-            <form
-              class="d-inline form-delete"
-              action="/subcategories/<%= subcategory.id %>?_method=DELETE"
-              method="POST"
-            >
-              <button class="btn btn-danger btn-delete">
-                <i class="bi bi-trash-fill"></i>
-              </button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
     </table>
   </div>
 </div>
+
+<%- include("../partials/jQueryScriptsInit") %>
+<script>
+  let dataSet = <%- JSON.stringify(subcategories) %>;
+
+  $("#example").DataTable({
+    data:dataSet,
+    dataSrc: "",
+    responsive: true,
+    columns: [
+      { data: "name" },
+      { data: "category.name" },
+      { data: "description" },
+      {
+        data: null,
+        render: function (data) {
+          return (
+            `<a href="/subcategories/${data._id}/edit" class="btn btn-primary btn-edit edit card-link"  ><i class="bi bi-pencil-square"></i></a><form
+              class="d-inline form-delete"
+              action="/subcategories/${data._id}?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </form>`
+          );
+        },
+      },
+    ],
+  });
+</script>
